@@ -1,0 +1,91 @@
+date,puzzle_num,row1,row2,row3,col1,col2,col3
+2026-06-01,1,Heavyweight,Light Heavyweight,Middleweight,Fought in UFC,Fought in Pride FC,Brazilian
+2026-06-02,2,Welterweight fight,Lightweight fight,Featherweight fight,Fought in UFC,Fought in Strikeforce,American
+2026-06-03,3,American,Title fight,Canadian,GSP opponent,BJ Penn opponent,Fought in WEC
+2026-06-04,4,Heavyweight,Submission win,KO/TKO win,Fought in 1990s,Fought in 2000s,Fought in 2020s
+2026-06-05,5,American,Lightweight fight,Decision loss,Khabib opponent,Conor McGregor opponent,Fought in Bellator
+2026-06-06,6,Heavyweight,Japanese,Title fight,Fought in RIZIN,Fought in PFL,Fought in ONE Championship
+2026-06-07,7,Bantamweight fight,Featherweight fight,American,Amanda Nunes opponent,Women's champion,Brazilian
+2026-06-08,8,American,Middleweight fight,KO/TKO win,Anderson Silva opponent,Fought in Strikeforce,30+ pro fights
+2026-06-09,9,Lightweight fight,American,Submission win,Khabib opponent,Islam Makhachev opponent,Fought in ONE Championship
+2026-06-10,10,Heavyweight,Submission win,Fought in UFC,Fedor opponent,Pride GP winner,Dutch fighter
+2026-06-11,11,Lightweight fight,Welterweight fight,Heavyweight,Fought in UFC,Fought in Bellator,American
+2026-06-12,12,Brazilian,Russian,American,Heavyweight,Middleweight fight,Submission win
+2026-06-13,13,Lightweight fight,Featherweight fight,Bantamweight fight,Fought in WEC,Fought in UFC,Title fight
+2026-06-14,14,American,Brazilian,Canadian,Jon Jones opponent,Daniel Cormier opponent,Fought in Strikeforce
+2026-06-15,15,Heavyweight,Light Heavyweight,Middleweight,Fought in Bellator,Fought in ONE Championship,KO/TKO win
+2026-06-16,16,Welterweight fight,Lightweight fight,Middleweight fight,Fought in UFC,American,Title fight
+2026-06-17,17,Brazilian,Japanese,American,Fought in Pride FC,Fought in UFC,Submission win
+2026-06-18,18,Heavyweight,Light Heavyweight,Welterweight fight,Fought in RIZIN,Fought in UFC,KO/TKO win
+2026-06-19,19,American,Brazilian,Russian,Chuck Liddell opponent,Wanderlei Silva opponent,Fought in Pride FC
+2026-06-20,20,Lightweight fight,Featherweight fight,Welterweight fight,Fought in Strikeforce,Fought in UFC,American
+2026-06-21,21,Heavyweight,Middleweight fight,Submission win,Fought in UFC,Fought in Pride FC,Brazilian
+2026-06-22,22,American,Brazilian,Irish,Conor McGregor opponent,Dustin Poirier opponent,Lightweight fight
+2026-06-23,23,Welterweight fight,Middleweight fight,Light Heavyweight,Fought in UFC,Canadian,Title fight
+2026-06-24,24,Heavyweight,Light Heavyweight,Middleweight,Fought in 2000s,Fought in 2010s,KO/TKO win
+2026-06-25,25,Brazilian,American,Japanese,Fought in Pride FC,Fought in ONE Championship,Submission win
+2026-06-26,26,Lightweight fight,Bantamweight fight,Flyweight fight,Fought in WEC,Fought in UFC,American
+2026-06-27,27,Heavyweight,Middleweight fight,Welterweight fight,Fought in Strikeforce,Fought in Bellator,Title fight
+2026-06-28,28,American,Russian,Brazilian,Anderson Silva opponent,Vitor Belfort opponent,Fought in UFC
+2026-06-29,29,Lightweight fight,Featherweight fight,Bantamweight fight,Fought in UFC,Fought in Pride FC,KO/TKO win
+2026-06-30,30,Heavyweight,Light Heavyweight,Submission win,Fought in UFC,Fought in RIZIN,Japanese
+2026-07-01,31,Welterweight fight,Lightweight fight,Middleweight fight,Fought in UFC,Fought in Strikeforce,Brazilian
+2026-07-02,32,American,Canadian,British,GSP opponent,Nick Diaz opponent,Welterweight fight
+2026-07-03,33,Heavyweight,Light Heavyweight,KO/TKO win,Fought in Pride FC,Fought in UFC,Dutch fighter
+2026-07-04,34,American,Brazilian,Dagestani,Lightweight fight,Submission win,Fought in UFC
+2026-07-05,35,Middleweight fight,Welterweight fight,Lightweight fight,Fought in UFC,Fought in Bellator,Title fight
+2026-07-06,36,Heavyweight,Submission win,Decision win,Fought in UFC,Fought in ONE Championship,Brazilian
+2026-07-07,37,American,Japanese,Brazilian,Fedor opponent,Mirko Cro Cop opponent,Fought in Pride FC
+2026-07-08,38,Featherweight fight,Bantamweight fight,Flyweight fight,Fought in WEC,Fought in UFC,American
+2026-07-09,39,Heavyweight,Light Heavyweight,Middleweight,Fought in Strikeforce,Fought in UFC,KO/TKO win
+2026-07-10,40,Brazilian,American,Irish,Conor McGregor opponent,Jose Aldo opponent,Featherweight fight
+2026-07-11,41,Welterweight fight,Lightweight fight,Featherweight fight,Fought in UFC,Fought in WEC,Canadian
+2026-07-12,42,Heavyweight,Middleweight fight,Submission win,Fought in Pride FC,Fought in Bellator,American
+2026-07-13,43,Russian,Brazilian,American,Fought in UFC,Khabib opponent,Lightweight fight
+2026-07-14,44,Light Heavyweight,Middleweight fight,Welterweight fight,Fought in UFC,Fought in Strikeforce,Title fight
+2026-07-15,45,Heavyweight,Light Heavyweight,KO/TKO win,Fought in UFC,Fought in RIZIN,Japanese
+2026-07-16,46,American,Brazilian,Dutch,Fought in Pride FC,Fought in UFC,Heavyweight
+2026-07-17,47,Lightweight fight,Welterweight fight,Middleweight fight,Fought in UFC,Fought in ONE Championship,Submission win
+2026-07-18,48,Heavyweight,Middleweight fight,Brazilian,Chuck Liddell opponent,Fought in UFC,KO/TKO win
+2026-07-19,49,American,Canadian,Australian,Jon Jones opponent,Fought in UFC,Light Heavyweight
+2026-07-20,50,Featherweight fight,Bantamweight fight,Flyweight fight,Fought in UFC,Fought in Strikeforce,Brazilian
+2026-07-21,51,Heavyweight,Light Heavyweight,Submission win,Fought in Pride FC,Fought in UFC,Russian
+2026-07-22,52,Welterweight fight,Lightweight fight,American,Nick Diaz opponent,Nate Diaz opponent,Fought in UFC
+2026-07-23,53,Middleweight fight,Light Heavyweight,KO/TKO win,Fought in UFC,Fought in Bellator,American
+2026-07-24,54,Brazilian,Japanese,American,Fought in Pride FC,Fought in RIZIN,Heavyweight
+2026-07-25,55,Lightweight fight,Featherweight fight,Title fight,Fought in WEC,Fought in UFC,American
+2026-07-26,56,Heavyweight,Middleweight fight,Welterweight fight,Fought in UFC,Fought in Strikeforce,KO/TKO win
+2026-07-27,57,American,Brazilian,Russian,Anderson Silva opponent,Chael Sonnen opponent,Middleweight fight
+2026-07-28,58,Light Heavyweight,Middleweight fight,Submission win,Fought in UFC,Fought in ONE Championship,Brazilian
+2026-07-29,59,Heavyweight,KO/TKO win,Decision win,Fought in Pride FC,Fought in UFC,Dutch fighter
+2026-07-30,60,American,Canadian,Irish,Conor McGregor opponent,Lightweight fight,Fought in UFC
+2026-07-31,61,Featherweight fight,Bantamweight fight,Flyweight fight,Fought in UFC,Fought in WEC,Title fight
+2026-08-01,62,Heavyweight,Light Heavyweight,Brazilian,Fought in UFC,Fought in Pride FC,KO/TKO win
+2026-08-02,63,Welterweight fight,Lightweight fight,Middleweight fight,Fought in Bellator,Fought in UFC,American
+2026-08-03,64,Russian,Dagestani,American,Khabib opponent,Fought in UFC,Lightweight fight
+2026-08-04,65,Heavyweight,Submission win,Title fight,Fought in Strikeforce,Fought in UFC,Brazilian
+2026-08-05,66,Light Heavyweight,Middleweight fight,KO/TKO win,Fought in Pride FC,Fought in UFC,Japanese
+2026-08-06,67,American,Brazilian,Australian,Jon Jones opponent,Fought in UFC,Light Heavyweight
+2026-08-07,68,Featherweight fight,Bantamweight fight,Lightweight fight,Fought in WEC,Fought in UFC,American
+2026-08-08,69,Heavyweight,Light Heavyweight,Middleweight,Fought in UFC,Fought in RIZIN,KO/TKO win
+2026-08-09,70,Brazilian,American,Dutch,Fought in Pride FC,Fedor opponent,Heavyweight
+2026-08-10,71,Welterweight fight,Lightweight fight,Title fight,Fought in UFC,Fought in Strikeforce,American
+2026-08-11,72,Middleweight fight,Light Heavyweight,Submission win,Fought in UFC,Fought in Bellator,Brazilian
+2026-08-12,73,American,Russian,Japanese,Fought in Pride FC,Fought in UFC,Heavyweight
+2026-08-13,74,Featherweight fight,Bantamweight fight,Flyweight fight,Fought in UFC,Fought in ONE Championship,Brazilian
+2026-08-14,75,Heavyweight,KO/TKO win,Decision win,Fought in UFC,Fought in WEC,American
+2026-08-15,76,Light Heavyweight,Middleweight fight,Welterweight fight,Fought in Strikeforce,Fought in UFC,Title fight
+2026-08-16,77,American,Brazilian,Irish,Conor McGregor opponent,Featherweight fight,Fought in UFC
+2026-08-17,78,Heavyweight,Light Heavyweight,Submission win,Fought in Pride FC,Fought in RIZIN,Japanese
+2026-08-18,79,Welterweight fight,Lightweight fight,Middleweight fight,Fought in UFC,Fought in Bellator,KO/TKO win
+2026-08-19,80,Brazilian,American,Russian,Fought in UFC,Fought in Pride FC,Heavyweight
+2026-08-20,81,Featherweight fight,Bantamweight fight,Title fight,Fought in WEC,Fought in UFC,American
+2026-08-21,82,Light Heavyweight,Middleweight fight,KO/TKO win,Fought in UFC,Fought in Strikeforce,Brazilian
+2026-08-22,83,American,Canadian,Australian,GSP opponent,Fought in UFC,Welterweight fight
+2026-08-23,84,Heavyweight,Submission win,Decision win,Fought in Pride FC,Fought in ONE Championship,Dutch fighter
+2026-08-24,85,Lightweight fight,Featherweight fight,Bantamweight fight,Fought in UFC,Fought in WEC,Title fight
+2026-08-25,86,Brazilian,Japanese,American,Fought in Pride FC,Fought in RIZIN,KO/TKO win
+2026-08-26,87,Middleweight fight,Light Heavyweight,Welterweight fight,Fought in UFC,Fought in Bellator,Submission win
+2026-08-27,88,American,Russian,Dagestani,Khabib opponent,Islam Makhachev opponent,Lightweight fight
+2026-08-28,89,Heavyweight,Light Heavyweight,Middleweight,Fought in UFC,Fought in Pride FC,KO/TKO win
+2026-08-29,90,Brazilian,American,Irish,Conor McGregor opponent,Fought in UFC,Featherweight fight
