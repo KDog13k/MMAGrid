@@ -754,10 +754,16 @@ function validateAnswer(fighterName, rowCategory, colCategory) {
   const fighter = fighters.find(f =>
     f.name && f.name.toLowerCase() === name
   );
-  if (!fighter) return { valid: false, reason: 'Fighter not found in database' };
+  if (!fighter) return { valid: false, reason: `"${fighterName}" not found in database` };
+
+  const fights = parseFights(fighter.fights || '');
+  console.log(`Validating ${fighter.name}: ${fights.length} fights`);
+  console.log(`Row: "${rowCategory}" Col: "${colCategory}"`);
 
   const rowValid = checkCategory(fighter, rowCategory);
   const colValid = checkCategory(fighter, colCategory);
+
+  console.log(`Row valid: ${rowValid}, Col valid: ${colValid}`);
 
   if (!rowValid) return { valid: false, reason: `Does not satisfy: ${rowCategory}` };
   if (!colValid) return { valid: false, reason: `Does not satisfy: ${colCategory}` };
@@ -782,8 +788,8 @@ function checkCategory(fighter, category) {
     'fought in rizin': 'rizin',
   };
   for (const [key, org] of Object.entries(orgs)) {
-    if (cat === key) {
-      return fights.some(f => f.org.toLowerCase() === org);
+    if (cat === key || cat.includes(key)) {
+      return fights.some(f => f.org.toLowerCase().includes(org));
     }
   }
 
@@ -800,6 +806,11 @@ function checkCategory(fighter, category) {
     'irish': ['ireland', 'irish'],
     'australian': ['australia', 'australian'],
     'nigerian': ['nigeria', 'nigerian'],
+    'croatian': ['croatia', 'croatian'],
+    'polish': ['poland', 'polish'],
+    'chinese': ['china', 'chinese'],
+    'kyrgyz': ['kyrgyzstan', 'kyrgyz'],
+    'cameroonian': ['cameroon', 'cameroonian'],
   };
   for (const [key, vals] of Object.entries(nationalities)) {
     if (cat === key) {
