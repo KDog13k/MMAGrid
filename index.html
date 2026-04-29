@@ -3,7 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MMA Grid</title>
+<title>MMA Grid — The Ultimate MMA Trivia Game</title>
+<meta name="description" content="Test your MMA knowledge with MMA Grid — the daily trivia game where you match fighters to categories. New puzzles every Tuesday, Thursday, and Sunday.">
+<meta property="og:title" content="MMA Grid — The Ultimate MMA Trivia Game">
+<meta property="og:description" content="Can you fill the grid? Match fighters across UFC, Pride FC, Bellator and more. New puzzles Tuesday, Thursday, Sunday.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mmag rid.com">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MMA Grid">
+<meta name="twitter:description" content="The daily MMA trivia grid game. New puzzles Tuesday, Thursday, Sunday.">
+<link rel="canonical" href="https://mmag rid.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <style>
@@ -165,6 +174,7 @@
     min-width: 80px;
     flex-shrink: 0;
     margin-top: 4px;
+    min-height: 300px;
   }
 
   .stat {
@@ -587,7 +597,182 @@
 
   #countdown { color: var(--gold); }
 
-  /* Off day screen */
+  /* How to Play modal */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 600;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal-card {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-top: 3px solid var(--red);
+    padding: 2rem;
+    max-width: 460px;
+    width: 90%;
+    position: relative;
+  }
+
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    letter-spacing: 0.1em;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .modal-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    color: var(--text3);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-rule {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+  }
+
+  .modal-rule-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--red);
+    line-height: 1;
+    min-width: 20px;
+  }
+
+  .modal-rule-text {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  .modal-rule-text strong {
+    color: var(--text);
+  }
+
+  .modal-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1.25rem 0;
+  }
+
+  .modal-schedule {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .modal-day {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+    border: 1px solid var(--border2);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .modal-remember {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    color: var(--text3);
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .modal-remember input {
+    accent-color: var(--gold);
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+
+  .modal-close-btn {
+    background: var(--red);
+    color: var(--text);
+    border: none;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    padding: 0.6rem 1.5rem;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .modal-close-btn:hover { background: var(--red2); }
+
+  /* ? help button in sidebar */
+  .help-btn {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--text3);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    padding: 0.6rem 0;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.15s;
+    margin-top: auto;
+  }
+
+  .help-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* Game over - show correct answers */
+  .go-answers {
+    margin: 1rem 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+  }
+
+  .go-cell {
+    padding: 6px 4px;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .go-cell.solved {
+    background: var(--correct);
+    color: var(--correct-text);
+  }
+
+  .go-cell.unsolved {
+    background: var(--surface3);
+    color: var(--text3);
+  }
   .off-day {
     display: flex;
     flex-direction: column;
@@ -713,16 +898,50 @@
 
 <div class="toast" id="toast"></div>
 
-<div class="game-over" id="game-over">
-  <div class="game-over-card">
-    <div class="game-over-title" id="go-title">Fight Over</div>
-    <div class="game-over-sub" id="go-sub">Today's MMA Grid Complete</div>
-    <div class="game-over-score" id="go-score">0<span>/9</span></div>
-    <div class="game-over-label">Cells Solved</div>
-    <button class="share-btn" id="share-btn">Share Results</button>
-    <div class="next-puzzle">Next puzzle in <span id="countdown">--:--:--</span></div>
+<div class="modal-overlay" id="how-to-play">
+  <div class="modal-card">
+    <div class="modal-title">How to Play</div>
+    <div class="modal-subtitle">MMA Grid — Fill the 3×3 Grid</div>
+
+    <div class="modal-rule">
+      <div class="modal-rule-num">1</div>
+      <div class="modal-rule-text">Each cell requires a fighter who satisfies <strong>both</strong> the row category and the column category.</div>
+    </div>
+    <div class="modal-rule">
+      <div class="modal-rule-num">2</div>
+      <div class="modal-rule-text">You have <strong>9 attempts</strong> total shared across all cells. Every guess — right or wrong — uses one attempt.</div>
+    </div>
+    <div class="modal-rule">
+      <div class="modal-rule-num">3</div>
+      <div class="modal-rule-text">Each fighter can only be used <strong>once</strong> across the entire grid.</div>
+    </div>
+    <div class="modal-rule">
+      <div class="modal-rule-num">4</div>
+      <div class="modal-rule-text">After a correct answer, you'll see a <strong>rarity %</strong> showing how many players picked that fighter.</div>
+    </div>
+    <div class="modal-rule">
+      <div class="modal-rule-num">5</div>
+      <div class="modal-rule-text">Weight class categories mean the fighter competed <strong>at that weight class</strong> — not just for their career, but for specific fights where noted.</div>
+    </div>
+
+    <hr class="modal-divider">
+
+    <div class="modal-schedule">
+      <div class="modal-day">Tuesday</div>
+      <div class="modal-day">Thursday</div>
+      <div class="modal-day">Sunday</div>
+    </div>
+
+    <div class="modal-footer">
+      <label class="modal-remember">
+        <input type="checkbox" id="remember-me"> Don't show again
+      </label>
+      <button class="modal-close-btn" id="modal-close">Let's Fight</button>
+    </div>
   </div>
 </div>
+
+<div class="game-over" id="game-over"></div>
 
 <script>
 // ── Config ──────────────────────────────────────────────────────────────────
@@ -1156,13 +1375,51 @@ async function submitAnswer() {
 // ── Game over ─────────────────────────────────────────────────────────────────
 function endGame(won) {
   gameOver = true;
+
+  // Update career stats
+  const career = JSON.parse(localStorage.getItem('mmag_career') || '{"played":0,"solved":0,"perfect":0}');
+  const solved = Object.keys(solvedCells).length;
+  career.played++;
+  career.solved += solved;
+  if (solved === 9) career.perfect++;
+  localStorage.setItem('mmag_career', JSON.stringify(career));
+
   saveState();
 
-  const solved = Object.keys(solvedCells).length;
-  document.getElementById('go-title').textContent = won ? 'Fights Over' : 'No Contest';
-  document.getElementById('go-sub').textContent = won ? 'You solved the grid!' : 'Out of attempts';
-  document.getElementById('go-score').innerHTML = `${solved}<span>/9</span>`;
-  document.getElementById('game-over').classList.add('show');
+  // Build cell results grid
+  let cellsHtml = '';
+  for (let r = 1; r <= 3; r++) {
+    for (let c = 1; c <= 3; c++) {
+      const key = `${r}-${c}`;
+      const s = solvedCells[key];
+      if (s) {
+        cellsHtml += `<div class="go-cell solved">${s.name}</div>`;
+      } else {
+        const rowCat = puzzle[`row${r}`];
+        const colCat = puzzle[`col${c}`];
+        cellsHtml += `<div class="go-cell unsolved">${rowCat}<br>×<br>${colCat}</div>`;
+      }
+    }
+  }
+
+  const goEl = document.getElementById('game-over');
+  goEl.innerHTML = `
+    <div class="game-over-card">
+      <div class="game-over-title">${won ? 'Fight Over' : 'No Contest'}</div>
+      <div class="game-over-sub">${won ? 'Grid Complete!' : 'Out of attempts'}</div>
+      <div class="game-over-score">${solved}<span>/9</span></div>
+      <div class="game-over-label">Cells Solved</div>
+      <div class="go-answers">${cellsHtml}</div>
+      <button class="share-btn" id="share-btn">Share Results</button>
+      <div class="next-puzzle">Next puzzle in <span id="countdown">--:--:--</span></div>
+    </div>`;
+
+  goEl.classList.add('show');
+
+  document.getElementById('share-btn').addEventListener('click', () => {
+    const text = buildShareText();
+    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!', 'success'));
+  });
 
   updateCountdown();
   setInterval(updateCountdown, 1000);
@@ -1199,8 +1456,10 @@ function buildGrid() {
     <div class="stat"><div class="stat-val">${career.played}</div><div class="stat-label">Played</div></div>
     <div class="stat"><div class="stat-val">${career.solved}</div><div class="stat-label">Total Solved</div></div>
     <div class="stat"><div class="stat-val">${career.perfect}</div><div class="stat-label">Perfect</div></div>
-    <div class="stat"><div class="stat-val">${Object.keys(solvedCells).length}</div><div class="stat-label">Today</div></div>`;
+    <div class="stat"><div class="stat-val">${Object.keys(solvedCells).length}</div><div class="stat-label">Today</div></div>
+    <button class="help-btn" id="help-btn">?</button>`;
   wrapper.appendChild(sidebar);
+  document.getElementById('help-btn').addEventListener('click', showModal);
 
   // Grid + input container
   const gridAndInput = document.createElement('div');
@@ -1323,6 +1582,29 @@ function buildGrid() {
   }
 }
 
+// ── How to Play modal ─────────────────────────────────────────────────────────
+function initModal() {
+  const modal = document.getElementById('how-to-play');
+  const closeBtn = document.getElementById('modal-close');
+  const rememberCb = document.getElementById('remember-me');
+
+  closeBtn.addEventListener('click', () => {
+    if (rememberCb.checked) {
+      localStorage.setItem('mmag_hide_rules', '1');
+    }
+    modal.classList.remove('show');
+  });
+
+  // Show on first visit unless remembered
+  if (!localStorage.getItem('mmag_hide_rules')) {
+    modal.classList.add('show');
+  }
+}
+
+function showModal() {
+  document.getElementById('how-to-play').classList.add('show');
+}
+
 // ── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
   const today = getTodayKey();
@@ -1330,6 +1612,7 @@ async function init() {
 
   loadState();
   updateAttemptDots();
+  initModal();
 
   try {
     const [puzzleResult, loadedFighters] = await Promise.all([loadPuzzle(), loadFighters()]);
