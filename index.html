@@ -587,7 +587,61 @@
 
   #countdown { color: var(--gold); }
 
-  /* Loading state */
+  /* Off day screen */
+  .off-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    gap: 1rem;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .off-day-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    line-height: 1;
+  }
+
+  .off-day-next {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    color: var(--text2);
+    text-transform: uppercase;
+  }
+
+  .off-day-countdown {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  .off-day-days {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .off-day-day {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--text3);
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--border2);
+  }
+
+  .off-day-day.active {
+    color: var(--gold);
+    border-color: var(--gold);
+  }
   .loading {
     display: flex;
     flex-direction: column;
@@ -741,10 +795,15 @@ async function loadPuzzle() {
       complete: (results) => {
         const today = getTodayKey();
         const row = results.data.find(r => r.date === today);
-        if (row) resolve(row);
-        else {
-          // Fallback: use first puzzle for demo
-          resolve(results.data[0]);
+        if (row) {
+          resolve({ puzzle: row, isOffDay: false });
+        } else {
+          // Find next puzzle date
+          const futurePuzzles = results.data
+            .filter(r => r.date > today)
+            .sort((a, b) => a.date.localeCompare(b.date));
+          const next = futurePuzzles[0];
+          resolve({ puzzle: null, isOffDay: true, nextDate: next ? next.date : null });
         }
       },
       error: reject
@@ -978,14 +1037,17 @@ function selectCell(row, col) {
 // ── Autocomplete ──────────────────────────────────────────────────────────────
 function updateAutocomplete(query) {
   const list = document.getElementById('autocomplete-list');
+  if (!list) return;
   if (!query || query.length < 2) {
     list.classList.remove('visible');
+    list.innerHTML = '';
     return;
   }
 
   const q = query.toLowerCase();
   const matches = fighterNames
-    .filter(n => n.toLowerCase().includes(q))
+    .filter(n => n.toLowerCase().startsWith(q))
+    .concat(fighterNames.filter(n => !n.toLowerCase().startsWith(q) && n.toLowerCase().includes(q)))
     .slice(0, 8);
 
   if (!matches.length) {
@@ -994,7 +1056,8 @@ function updateAutocomplete(query) {
   }
 
   list.innerHTML = matches.map((name, i) => {
-    const idx = name.toLowerCase().indexOf(q);
+    const lower = name.toLowerCase();
+    const idx = lower.indexOf(q);
     const highlighted = name.slice(0, idx) + '<strong>' + name.slice(idx, idx + q.length) + '</strong>' + name.slice(idx + q.length);
     return `<div class="autocomplete-item" data-name="${name}" data-index="${i}">${highlighted}</div>`;
   }).join('');
@@ -1262,19 +1325,48 @@ function buildGrid() {
 
 // ── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
-  // Set date display
   const today = getTodayKey();
   document.getElementById('date-label').textContent = formatDate(today);
 
-  // Load saved state
   loadState();
   updateAttemptDots();
 
-  // Load puzzle + fighters in parallel
   try {
-    [puzzle, fighters] = await Promise.all([loadPuzzle(), loadFighters()]);
+    const [puzzleResult, loadedFighters] = await Promise.all([loadPuzzle(), loadFighters()]);
+    fighters = loadedFighters;
     fighterNames = [...new Set(fighters.map(f => f.name).filter(Boolean))].sort();
 
+    if (puzzleResult.isOffDay) {
+      // Show off-day screen
+      const nextDate = puzzleResult.nextDate;
+      const nextFormatted = nextDate ? formatDate(nextDate) : 'Coming soon';
+      const dayOfWeek = nextDate ? new Date(nextDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long' }) : '';
+      const todayDow = new Date().getDay(); // 0=Sun, 2=Tue, 4=Thu
+
+      document.getElementById('puzzle-num').textContent = '#—';
+      document.getElementById('game-wrapper').innerHTML = `
+        <div class="off-day">
+          <div class="off-day-title">No Puzzle Today</div>
+          <div class="off-day-next">Next puzzle ${dayOfWeek ? `— ${dayOfWeek}` : ''}</div>
+          <div class="off-day-countdown" id="off-countdown">--:--:--</div>
+          <div class="off-day-days">
+            <div class="off-day-day ${todayDow === 2 ? 'active' : ''}">Tuesday</div>
+            <div class="off-day-day ${todayDow === 4 ? 'active' : ''}">Thursday</div>
+            <div class="off-day-day ${todayDow === 0 ? 'active' : ''}">Sunday</div>
+          </div>
+        </div>`;
+
+      // Countdown to next puzzle midnight
+      function updateOffCountdown() {
+        const el = document.getElementById('off-countdown');
+        if (el) el.textContent = getTimeUntilMidnight();
+      }
+      updateOffCountdown();
+      setInterval(updateOffCountdown, 1000);
+      return;
+    }
+
+    puzzle = puzzleResult.puzzle;
     document.getElementById('puzzle-num').textContent = `#${puzzle.puzzle_num || '1'}`;
     buildGrid();
   } catch(e) {
