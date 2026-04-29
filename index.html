@@ -1070,7 +1070,7 @@ function updateAutocomplete(query) {
       e.preventDefault();
       document.getElementById('fighter-input').value = item.dataset.name;
       list.classList.remove('visible');
-      submitAnswer();
+      document.getElementById('fighter-input').focus();
     });
   });
 }
