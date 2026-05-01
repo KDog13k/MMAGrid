@@ -35,6 +35,8 @@
     --correct-text: #5ddb7a;
     --wrong: #3d0f0f;
     --cell-size: 120px;
+    --row-header-w: 100px;
+    --header-h: 100px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -47,7 +49,6 @@
     overflow-x: hidden;
   }
 
-  /* Fight poster grain overlay */
   body::before {
     content: '';
     position: fixed;
@@ -58,7 +59,6 @@
     opacity: 0.4;
   }
 
-  /* Red diagonal slash accent */
   body::after {
     content: '';
     position: fixed;
@@ -89,13 +89,9 @@
     color: var(--text);
   }
 
-  .logo span {
-    color: var(--red);
-  }
+  .logo span { color: var(--red); }
 
-  .header-right {
-    text-align: right;
-  }
+  .header-right { text-align: right; }
 
   .date-label {
     font-family: 'Barlow Condensed', sans-serif;
@@ -112,7 +108,6 @@
     letter-spacing: 0.05em;
   }
 
-  /* Attempts bar */
   .attempts-bar {
     display: flex;
     align-items: center;
@@ -131,10 +126,7 @@
     text-transform: uppercase;
   }
 
-  .attempt-dots {
-    display: flex;
-    gap: 6px;
-  }
+  .attempt-dots { display: flex; gap: 6px; }
 
   .dot {
     width: 10px;
@@ -145,18 +137,10 @@
     transition: all 0.3s ease;
   }
 
-  .dot.used {
-    background: var(--red);
-    border-color: var(--red2);
-    box-shadow: 0 0 6px var(--red);
-  }
+  .dot.used { background: var(--red); border-color: var(--red2); box-shadow: 0 0 6px var(--red); }
+  .dot.remaining { background: var(--gold); border-color: var(--gold2); }
 
-  .dot.remaining {
-    background: var(--gold);
-    border-color: var(--gold2);
-  }
-
-  /* Main game area */
+  /* ── DESKTOP LAYOUT ── */
   .game-wrapper {
     display: flex;
     align-items: flex-start;
@@ -186,9 +170,7 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .stat:last-child {
-    border-bottom: none;
-  }
+  .stat:last-child { border-bottom: none; }
 
   .stat-val {
     font-family: 'Bebas Neue', sans-serif;
@@ -214,12 +196,12 @@
     gap: 0.75rem;
   }
 
-  /* Grid layout */
+  /* Grid */
   .grid-container {
     position: relative;
     display: grid;
-    grid-template-columns: 100px repeat(3, var(--cell-size));
-    grid-template-rows: 100px repeat(3, var(--cell-size));
+    grid-template-columns: var(--row-header-w) repeat(3, var(--cell-size));
+    grid-template-rows: var(--header-h) repeat(3, var(--cell-size));
     gap: 3px;
     background: var(--border);
   }
@@ -274,21 +256,18 @@
     border-right: 2px solid var(--gold);
   }
 
-  /* Game cells */
   .cell {
     background: var(--surface);
     position: relative;
     cursor: pointer;
-    transition: background 0.15s ease, transform 0.1s ease;
+    transition: background 0.15s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
   }
 
-  .cell:hover:not(.correct):not(.locked) {
-    background: var(--surface3);
-  }
+  .cell:hover:not(.correct) { background: var(--surface3); }
 
   .cell.selected:not(.correct) {
     background: var(--surface3);
@@ -297,10 +276,7 @@
     z-index: 10;
   }
 
-  .cell.correct {
-    background: var(--correct);
-    cursor: default;
-  }
+  .cell.correct { background: var(--correct); cursor: default; }
 
   .cell.correct .cell-inner {
     display: flex;
@@ -337,15 +313,9 @@
     line-height: 1;
   }
 
-  .cell:hover:not(.correct) .cell-plus {
-    color: var(--gold);
-  }
+  .cell:hover:not(.correct) .cell-plus,
+  .cell.selected .cell-plus { color: var(--gold); }
 
-  .cell.selected .cell-plus {
-    color: var(--gold);
-  }
-
-  /* Cell number badge */
   .cell-num {
     position: absolute;
     top: 5px;
@@ -353,42 +323,20 @@
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.65rem;
     color: var(--text3);
-    letter-spacing: 0.05em;
   }
 
-  /* Wrong flash */
   @keyframes wrongFlash {
     0%, 100% { background: var(--surface); }
     50% { background: var(--wrong); }
   }
+  .cell.wrong-flash { animation: wrongFlash 0.4s ease; }
 
-  .cell.wrong-flash {
-    animation: wrongFlash 0.4s ease;
-  }
-
-  /* Input area */
+  /* Input */
   .input-area {
     margin-top: 0.75rem;
-    width: calc(100px + 3 * var(--cell-size) + 9px);
+    width: calc(var(--row-header-w) + 3 * var(--cell-size) + 9px);
     max-width: 100%;
     position: relative;
-  }
-
-  .input-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--text3);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .selected-cell-indicator {
-    color: var(--gold);
-    font-weight: 700;
   }
 
   .input-row {
@@ -413,15 +361,8 @@
     text-transform: uppercase;
   }
 
-  #fighter-input:focus {
-    border-color: var(--gold);
-  }
-
-  #fighter-input::placeholder {
-    color: var(--text3);
-    text-transform: none;
-    font-weight: 400;
-  }
+  #fighter-input:focus { border-color: var(--gold); }
+  #fighter-input::placeholder { color: var(--text3); text-transform: none; font-weight: 400; }
 
   #submit-btn {
     background: var(--red);
@@ -432,14 +373,12 @@
     letter-spacing: 0.1em;
     padding: 0 1.5rem;
     cursor: pointer;
-    transition: background 0.15s, transform 0.1s;
+    transition: background 0.15s;
+    white-space: nowrap;
   }
 
   #submit-btn:hover { background: var(--red2); }
-  #submit-btn:active { transform: scale(0.97); }
-  #submit-btn:disabled { background: var(--border2); cursor: not-allowed; }
 
-  /* Autocomplete dropdown */
   .autocomplete-list {
     position: absolute;
     top: calc(100% + 2px);
@@ -463,22 +402,14 @@
     letter-spacing: 0.04em;
     cursor: pointer;
     border-bottom: 1px solid var(--border);
-    transition: background 0.1s;
     color: var(--text2);
   }
 
   .autocomplete-item:hover,
-  .autocomplete-item.highlighted {
-    background: var(--surface3);
-    color: var(--text);
-  }
+  .autocomplete-item.highlighted { background: var(--surface3); color: var(--text); }
+  .autocomplete-item strong { color: var(--gold); font-weight: 700; }
 
-  .autocomplete-item strong {
-    color: var(--gold);
-    font-weight: 700;
-  }
-
-  /* Message toast */
+  /* Toast */
   .toast {
     position: fixed;
     top: 80px;
@@ -498,17 +429,69 @@
     text-transform: uppercase;
   }
 
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   .toast.success { border-color: var(--correct-border); color: var(--correct-text); }
   .toast.error { border-color: var(--red); color: var(--red2); }
 
-  /* stats moved to sidebar */
+  /* Help button - desktop sidebar */
+  .help-btn {
+    background: none;
+    border: 1px solid var(--border2);
+    color: var(--text3);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    padding: 0.6rem 0;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.15s;
+    margin-top: auto;
+  }
 
-  /* Game over overlay */
+  .help-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* Mobile stats row (hidden on desktop) */
+  .stats-bottom {
+    display: none;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+    width: 100%;
+  }
+
+  .stats-bottom-row {
+    display: flex;
+    width: 100%;
+  }
+
+  .stats-bottom .stat {
+    flex: 1;
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+    padding: 0.6rem 0.4rem;
+  }
+
+  .stats-bottom .stat:last-child { border-right: none; }
+
+  /* Mobile help bar (hidden on desktop) */
+  .help-bar {
+    display: none;
+    width: 100%;
+    background: none;
+    border: 1px solid var(--border2);
+    border-top: none;
+    color: var(--text3);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: uppercase;
+  }
+
+  .help-bar:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* Game over */
   .game-over {
     display: none;
     position: fixed;
@@ -525,64 +508,84 @@
     background: var(--surface);
     border: 1px solid var(--border2);
     border-top: 3px solid var(--gold);
-    padding: 2.5rem;
+    padding: 2rem;
     max-width: 420px;
     width: 90%;
     text-align: center;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   .game-over-title {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
+    font-size: 2.5rem;
     letter-spacing: 0.1em;
     color: var(--gold);
     line-height: 1;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
   }
 
   .game-over-sub {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     letter-spacing: 0.1em;
     color: var(--text3);
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
   }
 
   .game-over-score {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
+    font-size: 4rem;
     color: var(--text);
     line-height: 1;
     margin-bottom: 0.25rem;
   }
 
-  .game-over-score span {
-    color: var(--text3);
-    font-size: 2rem;
-  }
+  .game-over-score span { color: var(--text3); font-size: 2rem; }
 
   .game-over-label {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     letter-spacing: 0.15em;
     color: var(--text3);
     text-transform: uppercase;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
+
+  .go-answers {
+    margin: 0.75rem 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  .go-cell {
+    padding: 5px 3px;
+    text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.3;
+  }
+
+  .go-cell.solved { background: var(--correct); color: var(--correct-text); }
+  .go-cell.unsolved { background: var(--surface3); color: var(--text3); }
 
   .share-btn {
     background: var(--gold);
     color: var(--bg);
     border: none;
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     letter-spacing: 0.1em;
     padding: 0.75rem 2rem;
     cursor: pointer;
     width: 100%;
     transition: background 0.15s;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.75rem;
   }
 
   .share-btn:hover { background: var(--gold2); }
@@ -614,10 +617,12 @@
     background: var(--surface);
     border: 1px solid var(--border2);
     border-top: 3px solid var(--red);
-    padding: 2rem;
+    padding: 1.75rem;
     max-width: 460px;
-    width: 90%;
+    width: 92%;
     position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   .modal-title {
@@ -634,14 +639,14 @@
     letter-spacing: 0.15em;
     color: var(--text3);
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .modal-rule {
     display: flex;
     gap: 0.75rem;
     align-items: flex-start;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
   }
 
   .modal-rule-num {
@@ -654,25 +659,23 @@
 
   .modal-rule-text {
     font-family: 'Barlow', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--text2);
     line-height: 1.5;
   }
 
-  .modal-rule-text strong {
-    color: var(--text);
-  }
+  .modal-rule-text strong { color: var(--text); }
 
   .modal-divider {
     border: none;
     border-top: 1px solid var(--border);
-    margin: 1.25rem 0;
+    margin: 1rem 0;
   }
 
   .modal-schedule {
     display: flex;
     gap: 0.75rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
 
   .modal-day {
@@ -706,12 +709,7 @@
     cursor: pointer;
   }
 
-  .modal-remember input {
-    accent-color: var(--gold);
-    width: 14px;
-    height: 14px;
-    cursor: pointer;
-  }
+  .modal-remember input { accent-color: var(--gold); width: 14px; height: 14px; cursor: pointer; }
 
   .modal-close-btn {
     background: var(--red);
@@ -723,56 +721,12 @@
     padding: 0.6rem 1.5rem;
     cursor: pointer;
     transition: background 0.15s;
+    white-space: nowrap;
   }
 
   .modal-close-btn:hover { background: var(--red2); }
 
-  /* ? help button in sidebar */
-  .help-btn {
-    background: none;
-    border: 1px solid var(--border2);
-    color: var(--text3);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 0.1em;
-    padding: 0.6rem 0;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.15s;
-    margin-top: auto;
-  }
-
-  .help-btn:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-  }
-
-  /* Game over - show correct answers */
-  .go-answers {
-    margin: 1rem 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-  }
-
-  .go-cell {
-    padding: 6px 4px;
-    text-align: center;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-
-  .go-cell.solved {
-    background: var(--correct);
-    color: var(--correct-text);
-  }
-
-  .go-cell.unsolved {
-    background: var(--surface3);
-    color: var(--text3);
-  }
+  /* Off day */
   .off-day {
     display: flex;
     flex-direction: column;
@@ -807,11 +761,7 @@
     letter-spacing: 0.1em;
   }
 
-  .off-day-days {
-    display: flex;
-    gap: 1rem;
-    margin-top: 0.5rem;
-  }
+  .off-day-days { display: flex; gap: 1rem; margin-top: 0.5rem; }
 
   .off-day-day {
     font-family: 'Barlow Condensed', sans-serif;
@@ -823,10 +773,9 @@
     border: 1px solid var(--border2);
   }
 
-  .off-day-day.active {
-    color: var(--gold);
-    border-color: var(--gold);
-  }
+  .off-day-day.active { color: var(--gold); border-color: var(--gold); }
+
+  /* Loading */
   .loading {
     display: flex;
     flex-direction: column;
@@ -844,33 +793,124 @@
     animation: pulse 1.5s ease-in-out infinite;
   }
 
-  @keyframes pulse {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 1; }
-  }
+  @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
-  /* Correct cell animation */
   @keyframes correctPop {
     0% { transform: scale(0.9); opacity: 0; }
     60% { transform: scale(1.05); }
     100% { transform: scale(1); opacity: 1; }
   }
 
-  .cell.correct .cell-inner {
-    animation: correctPop 0.4s ease forwards;
-  }
+  .cell.correct .cell-inner { animation: correctPop 0.4s ease forwards; }
 
-  /* Scrollbar */
   ::-webkit-scrollbar { width: 4px; }
   ::-webkit-scrollbar-track { background: var(--surface); }
   ::-webkit-scrollbar-thumb { background: var(--border2); }
 
-  /* Mobile */
-  @media (max-width: 520px) {
-    :root { --cell-size: 85px; }
-    .logo { font-size: 2rem; }
-    .col-header, .row-header { font-size: 0.65rem; }
-    .cell-fighter-name { font-size: 0.72rem; }
+  /* ── MOBILE RESPONSIVE ── */
+  @media (max-width: 600px) {
+    :root {
+      --cell-size: 72px;
+      --row-header-w: 60px;
+      --header-h: 64px;
+    }
+
+    header {
+      padding: 0.75rem 1rem 0.6rem;
+    }
+
+    .logo { font-size: 1.8rem; }
+
+    .date-label { font-size: 0.6rem; }
+    .puzzle-num { font-size: 0.85rem; }
+
+    .attempts-bar {
+      padding: 0.5rem 1rem;
+      gap: 0.6rem;
+    }
+
+    .attempts-label { font-size: 0.65rem; }
+    .dot { width: 8px; height: 8px; }
+
+    /* Stack layout: no sidebar, grid centered, stats below */
+    .game-wrapper {
+      flex-direction: column;
+      align-items: center;
+      padding: 0.75rem 0.5rem;
+      gap: 0;
+    }
+
+    /* Hide desktop sidebar */
+    .stats-sidebar { display: none; }
+
+    /* Show mobile stats row */
+    .stats-bottom { display: block; }
+
+    /* Show mobile help bar */
+    .help-bar { display: block; }
+
+    .grid-and-input {
+      width: 100%;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .col-header {
+      font-size: 0.58rem;
+      letter-spacing: 0.04em;
+      padding: 0.3rem;
+      line-height: 1.2;
+    }
+
+    .row-header {
+      font-size: 0.58rem;
+      letter-spacing: 0.04em;
+      padding: 0.3rem;
+      line-height: 1.2;
+    }
+
+    .corner-cell::after {
+      font-size: 0.7rem;
+      bottom: 4px;
+      right: 4px;
+    }
+
+    .cell-plus { font-size: 1.4rem; }
+    .cell-num { font-size: 0.55rem; top: 3px; left: 3px; }
+
+    .cell-fighter-name { font-size: 0.6rem; }
+    .cell-rarity { font-size: 0.55rem; }
+
+    .input-area {
+      width: calc(var(--row-header-w) + 3 * var(--cell-size) + 9px);
+      margin-top: 0.5rem;
+    }
+
+    #fighter-input {
+      font-size: 0.9rem;
+      padding: 0.6rem 0.75rem;
+    }
+
+    #submit-btn {
+      font-size: 0.9rem;
+      padding: 0 1rem;
+    }
+
+    .stat-val { font-size: 1.3rem; }
+    .stat-label { font-size: 0.55rem; }
+
+    .autocomplete-item { font-size: 0.9rem; padding: 0.5rem 0.75rem; }
+
+    .game-over-card { padding: 1.25rem; }
+    .game-over-title { font-size: 2rem; }
+    .game-over-score { font-size: 3rem; }
+    .go-cell { font-size: 0.6rem; padding: 4px 2px; }
+
+    .modal-card { padding: 1.25rem; width: 96%; }
+    .modal-title { font-size: 1.8rem; }
+    .modal-rule-text { font-size: 0.82rem; }
+    .modal-footer { flex-direction: column; align-items: stretch; gap: 0.75rem; }
+    .modal-close-btn { width: 100%; text-align: center; padding: 0.75rem; }
   }
 </style>
 </head>
@@ -902,7 +942,6 @@
   <div class="modal-card">
     <div class="modal-title">How to Play</div>
     <div class="modal-subtitle">MMA Grid — Fill the 3×3 Grid</div>
-
     <div class="modal-rule">
       <div class="modal-rule-num">1</div>
       <div class="modal-rule-text">Each cell requires a fighter who satisfies <strong>both</strong> the row category and the column category.</div>
@@ -923,15 +962,12 @@
       <div class="modal-rule-num">5</div>
       <div class="modal-rule-text">Weight class categories mean the fighter competed <strong>at that weight class</strong> — not just for their career, but for specific fights where noted.</div>
     </div>
-
     <hr class="modal-divider">
-
     <div class="modal-schedule">
       <div class="modal-day">Tuesday</div>
       <div class="modal-day">Thursday</div>
       <div class="modal-day">Sunday</div>
     </div>
-
     <div class="modal-footer">
       <label class="modal-remember">
         <input type="checkbox" id="remember-me"> Don't show again
@@ -944,13 +980,11 @@
 <div class="game-over" id="game-over"></div>
 
 <script>
-// ── Config ──────────────────────────────────────────────────────────────────
 const PUZZLES_CSV = 'https://raw.githubusercontent.com/KDog13k/MMAGrid/main/mma_grid_puzzles.csv';
 const FIGHTERS_CSV = 'https://raw.githubusercontent.com/KDog13k/MMAGrid/main/fighters.csv';
 const SUPABASE_URL = 'https://qpxnhowbleckjcqlzwsa.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFweG5ob3dibGVja2pjcWx6d3NhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzczOTYzMzQsImV4cCI6MjA5Mjk3MjMzNH0.TRbnaU9UCDRt9U7D9XoU1waB6kXmezSG0rR4DD70-6I';
 
-// ── State ───────────────────────────────────────────────────────────────────
 let puzzle = null;
 let fighters = [];
 let fighterNames = [];
@@ -961,7 +995,6 @@ let solvedCells = {};
 let gameOver = false;
 let autocompleteIndex = -1;
 
-// ── Date helpers ────────────────────────────────────────────────────────────
 function getTodayKey() {
   const d = new Date();
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
@@ -983,17 +1016,12 @@ function getTimeUntilMidnight() {
   return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
 }
 
-// ── localStorage ────────────────────────────────────────────────────────────
 function saveState() {
-  const key = `mmag_${getTodayKey()}`;
-  localStorage.setItem(key, JSON.stringify({
-    solvedCells, attemptsUsed, attemptsLeft, gameOver
-  }));
+  localStorage.setItem(`mmag_${getTodayKey()}`, JSON.stringify({ solvedCells, attemptsUsed, attemptsLeft, gameOver }));
 }
 
 function loadState() {
-  const key = `mmag_${getTodayKey()}`;
-  const saved = localStorage.getItem(key);
+  const saved = localStorage.getItem(`mmag_${getTodayKey()}`);
   if (saved) {
     const s = JSON.parse(saved);
     solvedCells = s.solvedCells || {};
@@ -1005,22 +1033,17 @@ function loadState() {
   return false;
 }
 
-// ── Data loading ─────────────────────────────────────────────────────────────
 async function loadPuzzle() {
   return new Promise((resolve, reject) => {
     Papa.parse(PUZZLES_CSV, {
-      download: true,
-      header: true,
+      download: true, header: true,
       complete: (results) => {
         const today = getTodayKey();
         const row = results.data.find(r => r.date === today);
         if (row) {
           resolve({ puzzle: row, isOffDay: false });
         } else {
-          // Find next puzzle date
-          const futurePuzzles = results.data
-            .filter(r => r.date > today)
-            .sort((a, b) => a.date.localeCompare(b.date));
+          const futurePuzzles = results.data.filter(r => r.date > today).sort((a, b) => a.date.localeCompare(b.date));
           const next = futurePuzzles[0];
           resolve({ puzzle: null, isOffDay: true, nextDate: next ? next.date : null });
         }
@@ -1033,36 +1056,21 @@ async function loadPuzzle() {
 async function loadFighters() {
   return new Promise((resolve) => {
     Papa.parse(FIGHTERS_CSV, {
-      download: true,
-      header: true,
-      complete: (results) => {
-        resolve(results.data.filter(f => f.name && f.name.trim()));
-      },
+      download: true, header: true,
+      complete: (results) => resolve(results.data.filter(f => f.name && f.name.trim())),
       error: () => resolve([])
     });
   });
 }
 
-// ── Answer validation ────────────────────────────────────────────────────────
 function validateAnswer(fighterName, rowCategory, colCategory) {
   const name = fighterName.trim().toLowerCase();
-  const fighter = fighters.find(f =>
-    f.name && f.name.toLowerCase() === name
-  );
+  const fighter = fighters.find(f => f.name && f.name.toLowerCase() === name);
   if (!fighter) return { valid: false, reason: `"${fighterName}" not found in database` };
-
-  const fights = parseFights(fighter.fights || '');
-  console.log(`Validating ${fighter.name}: ${fights.length} fights`);
-  console.log(`Row: "${rowCategory}" Col: "${colCategory}"`);
-
   const rowValid = checkCategory(fighter, rowCategory);
   const colValid = checkCategory(fighter, colCategory);
-
-  console.log(`Row valid: ${rowValid}, Col valid: ${colValid}`);
-
   if (!rowValid) return { valid: false, reason: `Does not satisfy: ${rowCategory}` };
   if (!colValid) return { valid: false, reason: `Does not satisfy: ${colCategory}` };
-
   return { valid: true };
 }
 
@@ -1071,24 +1079,15 @@ function checkCategory(fighter, category) {
   const cat = category.toLowerCase().trim();
   const fights = parseFights(fighter.fights || '');
 
-  // ── Org categories ──
   const orgs = {
-    'fought in ufc': 'ufc',
-    'fought in pride fc': 'pride fc',
-    'fought in bellator': 'bellator',
-    'fought in one championship': 'one championship',
-    'fought in strikeforce': 'strikeforce',
-    'fought in wec': 'wec',
-    'fought in pfl': 'pfl',
-    'fought in rizin': 'rizin',
+    'fought in ufc': 'ufc', 'fought in pride fc': 'pride fc', 'fought in bellator': 'bellator',
+    'fought in one championship': 'one championship', 'fought in strikeforce': 'strikeforce',
+    'fought in wec': 'wec', 'fought in pfl': 'pfl', 'fought in rizin': 'rizin',
   };
   for (const [key, org] of Object.entries(orgs)) {
-    if (cat === key || cat.includes(key)) {
-      return fights.some(f => f.org.toLowerCase().includes(org));
-    }
+    if (cat === key || cat.includes(key)) return fights.some(f => f.org.toLowerCase().includes(org));
   }
 
-  // ── Nationality ──
   const nationalities = {
     'american': ['united states', 'american', 'usa'],
     'brazilian': ['brazil', 'brazilian'],
@@ -1115,56 +1114,30 @@ function checkCategory(fighter, category) {
     }
   }
 
-  // ── Weight class fights ──
-  const weightClasses = [
-    'heavyweight', 'light heavyweight', 'middleweight', 'welterweight',
-    'lightweight', 'featherweight', 'bantamweight', 'flyweight',
-    'strawweight', 'atomweight'
-  ];
+  const weightClasses = ['heavyweight','light heavyweight','middleweight','welterweight','lightweight','featherweight','bantamweight','flyweight','strawweight','atomweight'];
   for (const wc of weightClasses) {
-    if (cat === `${wc} fight` || cat === wc) {
-      return fights.some(f => f.weightClass.toLowerCase() === wc);
-    }
+    if (cat === `${wc} fight` || cat === wc) return fights.some(f => f.weightClass.toLowerCase() === wc);
   }
 
-  // ── Finish methods ──
-  if (cat === 'ko/tko win' || cat === 'ko win' || cat === 'knockout win') {
-    return fights.some(f => f.result === 'win' && f.method === 'KO');
-  }
-  if (cat === 'submission win') {
-    return fights.some(f => f.result === 'win' && f.method === 'Submission');
-  }
-  if (cat === 'decision win') {
-    return fights.some(f => f.result === 'win' && f.method === 'Decision');
-  }
-
-  // ── Title fights ──
-  if (cat === 'title fight' || cat === 'ufc title fight') {
-    return fights.some(f => f.titleFight === 'yes' && (cat === 'title fight' || f.org.toLowerCase() === 'ufc'));
-  }
-
-  // ── Era ──
+  if (cat === 'ko/tko win' || cat === 'ko win') return fights.some(f => f.result === 'win' && f.method === 'KO');
+  if (cat === 'submission win') return fights.some(f => f.result === 'win' && f.method === 'Submission');
+  if (cat === 'decision win') return fights.some(f => f.result === 'win' && f.method === 'Decision');
+  if (cat === 'title fight' || cat === 'ufc title fight') return fights.some(f => f.titleFight === 'yes' && (cat === 'title fight' || f.org.toLowerCase() === 'ufc'));
   if (cat === 'fought in 1990s') return fights.some(f => f.date && f.date.startsWith('199'));
   if (cat === 'fought in 2000s') return fights.some(f => f.date && f.date.startsWith('200'));
   if (cat === 'fought in 2010s') return fights.some(f => f.date && f.date.startsWith('201'));
   if (cat === 'fought in 2020s') return fights.some(f => f.date && f.date.startsWith('202'));
 
-  // ── Fight count ──
   const countMatch = cat.match(/^(\d+)\+\s*pro fights?$/);
-  if (countMatch) {
-    return fights.length >= parseInt(countMatch[1]);
-  }
+  if (countMatch) return fights.length >= parseInt(countMatch[1]);
 
-  // ── Common opponent ──
-  // Format: "[Fighter Name] opponent"
   const oppMatch = cat.match(/^(.+)\s+opponent$/);
   if (oppMatch) {
     const targetFighter = oppMatch[1].trim().toLowerCase();
     const targetData = fighters.find(f => f.name && f.name.toLowerCase() === targetFighter);
     if (!targetData) return false;
     const targetFights = parseFights(targetData.fights || '');
-    const targetOpponents = targetFights.map(f => f.opponent.toLowerCase());
-    return targetOpponents.includes(fighter.name.toLowerCase());
+    return targetFights.map(f => f.opponent.toLowerCase()).includes(fighter.name.toLowerCase());
   }
 
   return false;
@@ -1173,51 +1146,28 @@ function checkCategory(fighter, category) {
 function parseFights(fightsStr) {
   if (!fightsStr) return [];
   return fightsStr.split('||').map(f => {
-    const parts = f.split('|');
-    return {
-      opponent:    parts[0] || '',
-      opponentId:  parts[1] || '',
-      result:      parts[2] || '',
-      method:      parts[3] || '',
-      methodDetail:parts[4] || '',
-      weightClass: parts[5] || '',
-      org:         parts[6] || '',
-      eventName:   parts[7] || '',
-      date:        parts[8] || '',
-      round:       parts[9] || '',
-      time:        parts[10] || '',
-      titleFight:  parts[11] || 'no',
-    };
+    const p = f.split('|');
+    return { opponent: p[0]||'', opponentId: p[1]||'', result: p[2]||'', method: p[3]||'', methodDetail: p[4]||'', weightClass: p[5]||'', org: p[6]||'', eventName: p[7]||'', date: p[8]||'', round: p[9]||'', time: p[10]||'', titleFight: p[11]||'no' };
   }).filter(f => f.opponent);
 }
 
-// ── Supabase percentage tracking ─────────────────────────────────────────────
 async function logAnswer(date, cellKey, fighterName) {
   try {
     await fetch(`${SUPABASE_URL}/rest/v1/rpc/log_answer`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      },
+      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` },
       body: JSON.stringify({ p_date: date, p_cell: cellKey, p_fighter: fighterName })
     });
-  } catch(e) { /* Fail silently */ }
+  } catch(e) {}
 }
 
 async function getRarity(date, cellKey, fighterName) {
   try {
-    const res = await fetch(
-      `${SUPABASE_URL}/rest/v1/rpc/get_rarity?p_date=${date}&p_cell=${cellKey}&p_fighter=${encodeURIComponent(fighterName)}`,
-      { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } }
-    );
-    const data = await res.json();
-    return data || null;
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_rarity?p_date=${date}&p_cell=${cellKey}&p_fighter=${encodeURIComponent(fighterName)}`, { headers: { 'apikey': SUPABASE_KEY, 'Authorization': `Bearer ${SUPABASE_KEY}` } });
+    return await res.json() || null;
   } catch(e) { return null; }
 }
 
-// ── UI helpers ───────────────────────────────────────────────────────────────
 function showToast(msg, type = '', duration = 2000) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -1233,57 +1183,34 @@ function updateAttemptDots() {
     dot.className = 'dot ' + (i < attemptsUsed ? 'used' : 'remaining');
     container.appendChild(dot);
   }
-  const rem = document.getElementById('attempts-remaining');
-  rem.textContent = `${attemptsLeft} remaining`;
+  document.getElementById('attempts-remaining').textContent = `${attemptsLeft} remaining`;
 }
 
 function selectCell(row, col) {
   if (gameOver) return;
-  const cellId = `cell-${row}-${col}`;
-  const cellEl = document.getElementById(cellId);
+  const cellEl = document.getElementById(`cell-${row}-${col}`);
   if (!cellEl || cellEl.classList.contains('correct')) return;
-
-  // Deselect previous
   document.querySelectorAll('.cell.selected').forEach(c => c.classList.remove('selected'));
   cellEl.classList.add('selected');
   selectedCell = { row, col };
-
-  const rowCat = puzzle[`row${row}`];
-  const colCat = puzzle[`col${col}`];
   document.getElementById('fighter-input').focus();
 }
 
-// ── Autocomplete ──────────────────────────────────────────────────────────────
 function updateAutocomplete(query) {
   const list = document.getElementById('autocomplete-list');
   if (!list) return;
-  if (!query || query.length < 2) {
-    list.classList.remove('visible');
-    list.innerHTML = '';
-    return;
-  }
-
+  if (!query || query.length < 2) { list.classList.remove('visible'); list.innerHTML = ''; return; }
   const q = query.toLowerCase();
-  const matches = fighterNames
-    .filter(n => n.toLowerCase().startsWith(q))
-    .concat(fighterNames.filter(n => !n.toLowerCase().startsWith(q) && n.toLowerCase().includes(q)))
-    .slice(0, 8);
-
-  if (!matches.length) {
-    list.classList.remove('visible');
-    return;
-  }
-
-  list.innerHTML = matches.map((name, i) => {
-    const lower = name.toLowerCase();
-    const idx = lower.indexOf(q);
-    const highlighted = name.slice(0, idx) + '<strong>' + name.slice(idx, idx + q.length) + '</strong>' + name.slice(idx + q.length);
-    return `<div class="autocomplete-item" data-name="${name}" data-index="${i}">${highlighted}</div>`;
+  const matches = fighterNames.filter(n => n.toLowerCase().startsWith(q))
+    .concat(fighterNames.filter(n => !n.toLowerCase().startsWith(q) && n.toLowerCase().includes(q))).slice(0, 8);
+  if (!matches.length) { list.classList.remove('visible'); return; }
+  list.innerHTML = matches.map((name) => {
+    const idx = name.toLowerCase().indexOf(q);
+    const hl = name.slice(0,idx) + '<strong>' + name.slice(idx, idx+q.length) + '</strong>' + name.slice(idx+q.length);
+    return `<div class="autocomplete-item" data-name="${name}">${hl}</div>`;
   }).join('');
-
   list.classList.add('visible');
   autocompleteIndex = -1;
-
   list.querySelectorAll('.autocomplete-item').forEach(item => {
     item.addEventListener('mousedown', (e) => {
       e.preventDefault();
@@ -1294,135 +1221,64 @@ function updateAutocomplete(query) {
   });
 }
 
-// ── Submit answer ─────────────────────────────────────────────────────────────
 async function submitAnswer() {
   if (!selectedCell || gameOver) return;
-
   const input = document.getElementById('fighter-input');
   const name = input.value.trim();
-  if (!name) {
-    showToast('Enter a fighter name', 'error');
-    return;
-  }
-
+  if (!name) { showToast('Enter a fighter name', 'error'); return; }
   document.getElementById('autocomplete-list').classList.remove('visible');
-
   const { row, col } = selectedCell;
   const cellKey = `${row}-${col}`;
-
-  if (solvedCells[cellKey]) {
-    showToast('Cell already solved!');
-    return;
-  }
-
-  const rowCat = puzzle[`row${row}`];
-  const colCat = puzzle[`col${col}`];
-
-  // Check if already used in another cell
-  const alreadyUsed = Object.values(solvedCells).some(s => s.name.toLowerCase() === name.toLowerCase());
-  if (alreadyUsed) {
-    showToast('Fighter already used!', 'error');
-    return;
-  }
-
-  const result = validateAnswer(name, rowCat, colCat);
-
-  // Use an attempt regardless
-  attemptsUsed++;
-  attemptsLeft--;
+  if (solvedCells[cellKey]) { showToast('Cell already solved!'); return; }
+  if (Object.values(solvedCells).some(s => s.name.toLowerCase() === name.toLowerCase())) { showToast('Fighter already used!', 'error'); return; }
+  const result = validateAnswer(name, puzzle[`row${row}`], puzzle[`col${col}`]);
+  attemptsUsed++; attemptsLeft--;
   updateAttemptDots();
-
   if (result.valid) {
-    // Get rarity from Supabase
     const today = getTodayKey();
     await logAnswer(today, cellKey, name);
     const rarity = await getRarity(today, cellKey, name);
     const rarityPct = rarity ? `${rarity.percentage}% picked this` : '';
-
     solvedCells[cellKey] = { name, rarity: rarityPct };
-
     const cellEl = document.getElementById(`cell-${row}-${col}`);
-    cellEl.classList.remove('selected');
-    cellEl.classList.add('correct');
-    cellEl.innerHTML = `
-      <div class="cell-inner">
-        <div class="cell-fighter-name">${name}</div>
-        ${rarityPct ? `<div class="cell-rarity">${rarityPct}</div>` : ''}
-      </div>`;
-
+    cellEl.classList.remove('selected'); cellEl.classList.add('correct');
+    cellEl.innerHTML = `<div class="cell-inner"><div class="cell-fighter-name">${name}</div>${rarityPct ? `<div class="cell-rarity">${rarityPct}</div>` : ''}</div>`;
     showToast('Correct!', 'success');
-    input.value = '';
-    selectedCell = null;
-
-    // Check win
-    if (Object.keys(solvedCells).length === 9) {
-      setTimeout(() => endGame(true), 600);
-    }
+    input.value = ''; selectedCell = null;
+    if (Object.keys(solvedCells).length === 9) setTimeout(() => endGame(true), 600);
   } else {
     const cellEl = document.getElementById(`cell-${row}-${col}`);
     cellEl.classList.add('wrong-flash');
     setTimeout(() => cellEl.classList.remove('wrong-flash'), 400);
     showToast(result.reason || 'Incorrect', 'error');
   }
-
   saveState();
-
-  if (attemptsLeft === 0 && !gameOver) {
-    setTimeout(() => endGame(false), 600);
-  }
+  if (attemptsLeft === 0 && !gameOver) setTimeout(() => endGame(false), 600);
 }
 
-// ── Game over ─────────────────────────────────────────────────────────────────
 function endGame(won) {
   gameOver = true;
-
-  // Update career stats
   const career = JSON.parse(localStorage.getItem('mmag_career') || '{"played":0,"solved":0,"perfect":0}');
   const solved = Object.keys(solvedCells).length;
-  career.played++;
-  career.solved += solved;
+  career.played++; career.solved += solved;
   if (solved === 9) career.perfect++;
   localStorage.setItem('mmag_career', JSON.stringify(career));
-
   saveState();
-
-  // Build cell results grid
   let cellsHtml = '';
   for (let r = 1; r <= 3; r++) {
     for (let c = 1; c <= 3; c++) {
       const key = `${r}-${c}`;
       const s = solvedCells[key];
-      if (s) {
-        cellsHtml += `<div class="go-cell solved">${s.name}</div>`;
-      } else {
-        const rowCat = puzzle[`row${r}`];
-        const colCat = puzzle[`col${c}`];
-        cellsHtml += `<div class="go-cell unsolved">${rowCat}<br>×<br>${colCat}</div>`;
-      }
+      cellsHtml += s ? `<div class="go-cell solved">${s.name}</div>` : `<div class="go-cell unsolved">${puzzle[`row${r}`]}<br>×<br>${puzzle[`col${c}`]}</div>`;
     }
   }
-
   const goEl = document.getElementById('game-over');
-  goEl.innerHTML = `
-    <div class="game-over-card">
-      <div class="game-over-title">${won ? 'Fight Over' : 'No Contest'}</div>
-      <div class="game-over-sub">${won ? 'Grid Complete!' : 'Out of attempts'}</div>
-      <div class="game-over-score">${solved}<span>/9</span></div>
-      <div class="game-over-label">Cells Solved</div>
-      <div class="go-answers">${cellsHtml}</div>
-      <button class="share-btn" id="share-btn">Share Results</button>
-      <div class="next-puzzle">Next puzzle in <span id="countdown">--:--:--</span></div>
-    </div>`;
-
+  goEl.innerHTML = `<div class="game-over-card"><div class="game-over-title">${won ? 'Fight Over' : 'No Contest'}</div><div class="game-over-sub">${won ? 'Grid Complete!' : 'Out of attempts'}</div><div class="game-over-score">${solved}<span>/9</span></div><div class="game-over-label">Cells Solved</div><div class="go-answers">${cellsHtml}</div><button class="share-btn" id="share-btn">Share Results</button><div class="next-puzzle">Next puzzle in <span id="countdown">--:--:--</span></div></div>`;
   goEl.classList.add('show');
-
   document.getElementById('share-btn').addEventListener('click', () => {
-    const text = buildShareText();
-    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!', 'success'));
+    navigator.clipboard.writeText(buildShareText()).then(() => showToast('Copied!', 'success'));
   });
-
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+  updateCountdown(); setInterval(updateCountdown, 1000);
 }
 
 function updateCountdown() {
@@ -1430,38 +1286,31 @@ function updateCountdown() {
   if (el) el.textContent = getTimeUntilMidnight();
 }
 
-// ── Share ─────────────────────────────────────────────────────────────────────
 function buildShareText() {
-  const solved = Object.keys(solvedCells).length;
   let grid = '';
-  for (let r = 1; r <= 3; r++) {
-    for (let c = 1; c <= 3; c++) {
-      grid += solvedCells[`${r}-${c}`] ? '🟩' : '⬛';
-    }
-    grid += '\n';
-  }
-  return `MMA Grid #${puzzle.puzzle_num}\n${solved}/9 solved\n\n${grid}\nmmag rid.com`;
+  for (let r = 1; r <= 3; r++) { for (let c = 1; c <= 3; c++) grid += solvedCells[`${r}-${c}`] ? '🟩' : '⬛'; grid += '\n'; }
+  return `MMA Grid #${puzzle.puzzle_num}\n${Object.keys(solvedCells).length}/9 solved\n\n${grid}\nmmag rid.com`;
 }
 
-// ── Build UI ──────────────────────────────────────────────────────────────────
 function buildGrid() {
   const wrapper = document.getElementById('game-wrapper');
   wrapper.innerHTML = '';
-
-  // Stats sidebar
   const career = JSON.parse(localStorage.getItem('mmag_career') || '{"played":0,"solved":0,"perfect":0}');
+  const todaySolved = Object.keys(solvedCells).length;
+
+  // Desktop sidebar
   const sidebar = document.createElement('div');
   sidebar.className = 'stats-sidebar';
   sidebar.innerHTML = `
     <div class="stat"><div class="stat-val">${career.played}</div><div class="stat-label">Played</div></div>
     <div class="stat"><div class="stat-val">${career.solved}</div><div class="stat-label">Total Solved</div></div>
     <div class="stat"><div class="stat-val">${career.perfect}</div><div class="stat-label">Perfect</div></div>
-    <div class="stat"><div class="stat-val">${Object.keys(solvedCells).length}</div><div class="stat-label">Today</div></div>
-    <button class="help-btn" id="help-btn">?</button>`;
+    <div class="stat"><div class="stat-val">${todaySolved}</div><div class="stat-label">Today</div></div>
+    <button class="help-btn" id="help-btn-desktop">?</button>`;
   wrapper.appendChild(sidebar);
-  document.getElementById('help-btn').addEventListener('click', showModal);
+  document.getElementById('help-btn-desktop').addEventListener('click', showModal);
 
-  // Grid + input container
+  // Grid + input
   const gridAndInput = document.createElement('div');
   gridAndInput.className = 'grid-and-input';
   wrapper.appendChild(gridAndInput);
@@ -1469,12 +1318,10 @@ function buildGrid() {
   const gridEl = document.createElement('div');
   gridEl.className = 'grid-container';
 
-  // Corner
   const corner = document.createElement('div');
   corner.className = 'corner-cell';
   gridEl.appendChild(corner);
 
-  // Col headers
   for (let c = 1; c <= 3; c++) {
     const h = document.createElement('div');
     h.className = 'col-header';
@@ -1482,181 +1329,101 @@ function buildGrid() {
     gridEl.appendChild(h);
   }
 
-  // Rows
   for (let r = 1; r <= 3; r++) {
-    // Row header
     const rh = document.createElement('div');
     rh.className = 'row-header';
     rh.textContent = puzzle[`row${r}`] || '';
     gridEl.appendChild(rh);
-
-    // Cells
     for (let c = 1; c <= 3; c++) {
       const cell = document.createElement('div');
       cell.className = 'cell';
       cell.id = `cell-${r}-${c}`;
-      cell.dataset.row = r;
-      cell.dataset.col = c;
-
       const cellKey = `${r}-${c}`;
-
       if (solvedCells[cellKey]) {
         cell.classList.add('correct');
         const s = solvedCells[cellKey];
-        cell.innerHTML = `
-          <div class="cell-inner">
-            <div class="cell-fighter-name">${s.name}</div>
-            ${s.rarity ? `<div class="cell-rarity">${s.rarity}</div>` : ''}
-          </div>`;
+        cell.innerHTML = `<div class="cell-inner"><div class="cell-fighter-name">${s.name}</div>${s.rarity ? `<div class="cell-rarity">${s.rarity}</div>` : ''}</div>`;
       } else {
-        cell.innerHTML = `
-          <span class="cell-num">${(r-1)*3+c}</span>
-          <span class="cell-plus">+</span>`;
+        cell.innerHTML = `<span class="cell-num">${(r-1)*3+c}</span><span class="cell-plus">+</span>`;
         cell.addEventListener('click', () => selectCell(r, c));
       }
-
       gridEl.appendChild(cell);
     }
   }
 
   gridAndInput.appendChild(gridEl);
 
-  // Input area
+  // Input
   const inputArea = document.createElement('div');
   inputArea.className = 'input-area';
-  inputArea.innerHTML = `
-    <div class="input-row" style="position:relative;">
-      <input type="text" id="fighter-input" placeholder="Type a fighter name..." autocomplete="off" />
-      <button id="submit-btn">Submit</button>
-      <div class="autocomplete-list" id="autocomplete-list"></div>
-    </div>`;
-
+  inputArea.innerHTML = `<div class="input-row" style="position:relative;"><input type="text" id="fighter-input" placeholder="Type a fighter name..." autocomplete="off" /><button id="submit-btn">Submit</button><div class="autocomplete-list" id="autocomplete-list"></div></div>`;
   gridAndInput.appendChild(inputArea);
 
-  // Wire up input
+  // Mobile stats bottom
+  const statsBottom = document.createElement('div');
+  statsBottom.className = 'stats-bottom';
+  statsBottom.innerHTML = `<div class="stats-bottom-row"><div class="stat"><div class="stat-val">${career.played}</div><div class="stat-label">Played</div></div><div class="stat"><div class="stat-val">${career.solved}</div><div class="stat-label">Solved</div></div><div class="stat"><div class="stat-val">${career.perfect}</div><div class="stat-label">Perfect</div></div><div class="stat"><div class="stat-val">${todaySolved}</div><div class="stat-label">Today</div></div></div>`;
+  gridAndInput.appendChild(statsBottom);
+
+  // Mobile help bar
+  const helpBar = document.createElement('button');
+  helpBar.className = 'help-bar';
+  helpBar.textContent = '? How to Play';
+  helpBar.addEventListener('click', showModal);
+  gridAndInput.appendChild(helpBar);
+
+  // Wire input
   const inputEl = document.getElementById('fighter-input');
-  const submitBtn = document.getElementById('submit-btn');
-
   inputEl.addEventListener('input', () => updateAutocomplete(inputEl.value));
-
   inputEl.addEventListener('keydown', (e) => {
     const list = document.getElementById('autocomplete-list');
     const items = list.querySelectorAll('.autocomplete-item');
-
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      autocompleteIndex = Math.min(autocompleteIndex + 1, items.length - 1);
-      items.forEach((item, i) => item.classList.toggle('highlighted', i === autocompleteIndex));
-      if (items[autocompleteIndex]) inputEl.value = items[autocompleteIndex].dataset.name;
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      autocompleteIndex = Math.max(autocompleteIndex - 1, -1);
-      items.forEach((item, i) => item.classList.toggle('highlighted', i === autocompleteIndex));
-    } else if (e.key === 'Enter') {
-      if (autocompleteIndex >= 0 && items[autocompleteIndex]) {
-        inputEl.value = items[autocompleteIndex].dataset.name;
-        list.classList.remove('visible');
-      }
-      submitAnswer();
-    } else if (e.key === 'Escape') {
-      list.classList.remove('visible');
-    }
+    if (e.key === 'ArrowDown') { e.preventDefault(); autocompleteIndex = Math.min(autocompleteIndex+1, items.length-1); items.forEach((item,i) => item.classList.toggle('highlighted', i===autocompleteIndex)); if(items[autocompleteIndex]) inputEl.value = items[autocompleteIndex].dataset.name; }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); autocompleteIndex = Math.max(autocompleteIndex-1,-1); items.forEach((item,i) => item.classList.toggle('highlighted', i===autocompleteIndex)); }
+    else if (e.key === 'Enter') { if(autocompleteIndex>=0 && items[autocompleteIndex]) { inputEl.value=items[autocompleteIndex].dataset.name; list.classList.remove('visible'); } submitAnswer(); }
+    else if (e.key === 'Escape') list.classList.remove('visible');
   });
-
-  submitBtn.addEventListener('click', submitAnswer);
-
-  document.getElementById('share-btn').addEventListener('click', () => {
-    const text = buildShareText();
-    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!', 'success'));
-  });
-
-  // If game is over from saved state, show overlay
-  if (gameOver) {
-    const solved = Object.keys(solvedCells).length;
-    document.getElementById('go-title').textContent = solved === 9 ? 'Fights Over' : 'No Contest';
-    document.getElementById('go-sub').textContent = solved === 9 ? 'You solved the grid!' : 'Out of attempts';
-    document.getElementById('go-score').innerHTML = `${solved}<span>/9</span>`;
-    document.getElementById('game-over').classList.add('show');
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-  }
+  document.getElementById('submit-btn').addEventListener('click', submitAnswer);
 }
 
-// ── How to Play modal ─────────────────────────────────────────────────────────
 function initModal() {
   const modal = document.getElementById('how-to-play');
-  const closeBtn = document.getElementById('modal-close');
-  const rememberCb = document.getElementById('remember-me');
-
-  closeBtn.addEventListener('click', () => {
-    if (rememberCb.checked) {
-      localStorage.setItem('mmag_hide_rules', '1');
-    }
+  document.getElementById('modal-close').addEventListener('click', () => {
+    if (document.getElementById('remember-me').checked) localStorage.setItem('mmag_hide_rules', '1');
     modal.classList.remove('show');
   });
-
-  // Show on first visit unless remembered
-  if (!localStorage.getItem('mmag_hide_rules')) {
-    modal.classList.add('show');
-  }
+  if (!localStorage.getItem('mmag_hide_rules')) modal.classList.add('show');
 }
 
 function showModal() {
   document.getElementById('how-to-play').classList.add('show');
 }
 
-// ── Init ──────────────────────────────────────────────────────────────────────
 async function init() {
   const today = getTodayKey();
   document.getElementById('date-label').textContent = formatDate(today);
-
   loadState();
   updateAttemptDots();
   initModal();
-
   try {
     const [puzzleResult, loadedFighters] = await Promise.all([loadPuzzle(), loadFighters()]);
     fighters = loadedFighters;
     fighterNames = [...new Set(fighters.map(f => f.name).filter(Boolean))].sort();
-
     if (puzzleResult.isOffDay) {
-      // Show off-day screen
       const nextDate = puzzleResult.nextDate;
-      const nextFormatted = nextDate ? formatDate(nextDate) : 'Coming soon';
       const dayOfWeek = nextDate ? new Date(nextDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long' }) : '';
-      const todayDow = new Date().getDay(); // 0=Sun, 2=Tue, 4=Thu
-
+      const todayDow = new Date().getDay();
       document.getElementById('puzzle-num').textContent = '#—';
-      document.getElementById('game-wrapper').innerHTML = `
-        <div class="off-day">
-          <div class="off-day-title">No Puzzle Today</div>
-          <div class="off-day-next">Next puzzle ${dayOfWeek ? `— ${dayOfWeek}` : ''}</div>
-          <div class="off-day-countdown" id="off-countdown">--:--:--</div>
-          <div class="off-day-days">
-            <div class="off-day-day ${todayDow === 2 ? 'active' : ''}">Tuesday</div>
-            <div class="off-day-day ${todayDow === 4 ? 'active' : ''}">Thursday</div>
-            <div class="off-day-day ${todayDow === 0 ? 'active' : ''}">Sunday</div>
-          </div>
-        </div>`;
-
-      // Countdown to next puzzle midnight
-      function updateOffCountdown() {
-        const el = document.getElementById('off-countdown');
-        if (el) el.textContent = getTimeUntilMidnight();
-      }
-      updateOffCountdown();
-      setInterval(updateOffCountdown, 1000);
+      document.getElementById('game-wrapper').innerHTML = `<div class="off-day"><div class="off-day-title">No Puzzle Today</div><div class="off-day-next">Next puzzle ${dayOfWeek ? `— ${dayOfWeek}` : ''}</div><div class="off-day-countdown" id="off-countdown">--:--:--</div><div class="off-day-days"><div class="off-day-day ${todayDow===2?'active':''}">Tuesday</div><div class="off-day-day ${todayDow===4?'active':''}">Thursday</div><div class="off-day-day ${todayDow===0?'active':''}">Sunday</div></div></div>`;
+      function updateOffCountdown() { const el = document.getElementById('off-countdown'); if(el) el.textContent = getTimeUntilMidnight(); }
+      updateOffCountdown(); setInterval(updateOffCountdown, 1000);
       return;
     }
-
     puzzle = puzzleResult.puzzle;
     document.getElementById('puzzle-num').textContent = `#${puzzle.puzzle_num || '1'}`;
     buildGrid();
   } catch(e) {
-    document.getElementById('game-wrapper').innerHTML = `
-      <div class="loading">
-        <div class="loading-text">Error loading puzzle</div>
-      </div>`;
+    document.getElementById('game-wrapper').innerHTML = `<div class="loading"><div class="loading-text">Error loading puzzle</div></div>`;
     console.error(e);
   }
 }
