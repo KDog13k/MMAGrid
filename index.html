@@ -941,14 +941,14 @@
 <div class="modal-overlay" id="how-to-play">
   <div class="modal-card">
     <div class="modal-title">How to Play</div>
-    <div class="modal-subtitle">MMA Grid — Fill the 3×3 Grid</div>
+    <div class="modal-subtitle">MMA Grid | Fill the 3×3 Grid</div>
     <div class="modal-rule">
       <div class="modal-rule-num">1</div>
       <div class="modal-rule-text">Each cell requires a fighter who satisfies <strong>both</strong> the row category and the column category.</div>
     </div>
     <div class="modal-rule">
       <div class="modal-rule-num">2</div>
-      <div class="modal-rule-text">You have <strong>9 attempts</strong> total shared across all cells. Every guess — right or wrong — uses one attempt.</div>
+      <div class="modal-rule-text">You have <strong>9 attempts</strong> total shared across all cells. Every guess, right or wrong, uses one attempt.</div>
     </div>
     <div class="modal-rule">
       <div class="modal-rule-num">3</div>
@@ -960,7 +960,7 @@
     </div>
     <div class="modal-rule">
       <div class="modal-rule-num">5</div>
-      <div class="modal-rule-text">Weight class categories mean the fighter competed <strong>at that weight class</strong> — not just for their career, but for specific fights where noted.</div>
+      <div class="modal-rule-text">Weight class categories mean the fighter competed <strong>at that weight class</strong>, not just for their career, but for specific fights where noted.</div>
     </div>
     <hr class="modal-divider">
     <div class="modal-schedule">
@@ -1414,7 +1414,7 @@ async function init() {
       const dayOfWeek = nextDate ? new Date(nextDate + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long' }) : '';
       const todayDow = new Date().getDay();
       document.getElementById('puzzle-num').textContent = '#—';
-      document.getElementById('game-wrapper').innerHTML = `<div class="off-day"><div class="off-day-title">No Puzzle Today</div><div class="off-day-next">Next puzzle ${dayOfWeek ? `— ${dayOfWeek}` : ''}</div><div class="off-day-countdown" id="off-countdown">--:--:--</div><div class="off-day-days"><div class="off-day-day ${todayDow===2?'active':''}">Tuesday</div><div class="off-day-day ${todayDow===4?'active':''}">Thursday</div><div class="off-day-day ${todayDow===0?'active':''}">Sunday</div></div></div>`;
+      document.getElementById('game-wrapper').innerHTML = `<div class="off-day"><div class="off-day-title">No Puzzle Today</div><div class="off-day-next">Next puzzle ${dayOfWeek ? `on ${dayOfWeek}` : ''}</div><div class="off-day-countdown" id="off-countdown">--:--:--</div><div class="off-day-days"><div class="off-day-day ${todayDow===2?'active':''}">Tuesday</div><div class="off-day-day ${todayDow===4?'active':''}">Thursday</div><div class="off-day-day ${todayDow===0?'active':''}">Sunday</div></div></div>`;
       function updateOffCountdown() { const el = document.getElementById('off-countdown'); if(el) el.textContent = getTimeUntilMidnight(); }
       updateOffCountdown(); setInterval(updateOffCountdown, 1000);
       return;
