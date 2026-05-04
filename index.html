@@ -1039,12 +1039,27 @@ async function loadPuzzle() {
       download: true, header: true,
       complete: (results) => {
         const today = getTodayKey();
-        const row = results.data.find(r => r.date === today);
-        if (row) {
-          resolve({ puzzle: row, isOffDay: false });
+
+        // Exact match first
+        const exactMatch = results.data.find(r => r.date === today);
+        if (exactMatch) {
+          resolve({ puzzle: exactMatch, isOffDay: false });
+          return;
+        }
+
+        // Most recent puzzle on or before today
+        const pastPuzzles = results.data
+          .filter(r => r.date && r.date <= today)
+          .sort((a, b) => b.date.localeCompare(a.date));
+
+        const futurePuzzles = results.data
+          .filter(r => r.date > today)
+          .sort((a, b) => a.date.localeCompare(b.date));
+        const next = futurePuzzles[0];
+
+        if (pastPuzzles[0]) {
+          resolve({ puzzle: pastPuzzles[0], isOffDay: false, nextDate: next ? next.date : null });
         } else {
-          const futurePuzzles = results.data.filter(r => r.date > today).sort((a, b) => a.date.localeCompare(b.date));
-          const next = futurePuzzles[0];
           resolve({ puzzle: null, isOffDay: true, nextDate: next ? next.date : null });
         }
       },
